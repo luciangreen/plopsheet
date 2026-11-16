@@ -23,4 +23,4 @@ theorem(references_are_dependencies) :- forall(formula(F), ( cell_formula(F, T),
 
 % 4. parse_formula gives one formula per text.
 theorem(parse_is_unambiguous) :- forall(formula(F), ( cell_formula(F, T), findall(G, parse_formula(T, G), [_]) )).
-counterexample(references_are_dependencies, F-T-D-Rs) :- formula(F), cell_formula(F, T), dep(F, D), findall(I, ( between(0, 2, I), col(I, C), string_concat(C, "1", R), sub_string(T, _, _, _, R) ), Rs), Rs \== D.
+counterexample(references_are_dependencies, F-T-D-Rs) :- formula(F), cell_formula(F, T), dep(F, D), findall(I, ( between(0, 2, I), col(I, C), string_concat(C, "1", R), once(sub_string(T, _, _, _, R)) ), Rs), Rs \== D.
