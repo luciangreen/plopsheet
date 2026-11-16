@@ -19,7 +19,7 @@ theorem(round_trip) :- forall(formula(F), ( cell_formula(F, T), parse_formula(T,
 theorem(sheet_equals_program) :- forall(( length(Fs, 2), maplist(pool, Fs), str(In) ), ( sheet(Fs, In, C), evaluate(C, 3, O), run(Fs, In, O2), O == O2 )).
 
 % 3. The cells a formula refers to are exactly the inputs it reads.
-theorem(references_are_dependencies) :- forall(formula(F), ( cell_formula(F, T), dep(F, D), findall(I, ( between(0, 2, I), col(I, C), string_concat(C, "1", R), sub_string(T, _, _, _, R) ), Rs), Rs == D )).
+theorem(references_are_dependencies) :- forall(formula(F), ( cell_formula(F, T), dep(F, D), findall(I, ( between(0, 2, I), col(I, C), string_concat(C, "1", R), once(sub_string(T, _, _, _, R)) ), Rs), Rs == D )).
 
 % 4. parse_formula gives one formula per text.
 theorem(parse_is_unambiguous) :- forall(formula(F), ( cell_formula(F, T), findall(G, parse_formula(T, G), [_]) )).
